@@ -184,19 +184,19 @@ export default {
 			this.chartData = this.doool
 		},
 		connectChannel(key) {
-			this.socket.on('is_online_'+key, (user) => {
-				let index = this.school_monitors.map(item => item.key).indexOf(key)
-				let exists = this.school_monitors[index].connect.map(item => item.id).indexOf(user.id)
+			this.socket.on('is_online_'+key, (res) => {
+				let index = this.school_monitors.map(item => item.key).indexOf(res.key)
+				let exists = this.school_monitors[index].connect.map(item => item.id).indexOf(res.user.id)
 				if(exists == -1) {
-					this.school_monitors[index].connect.push(user)
+					this.school_monitors[index].connect.push(res.user)
 					let ind = this.dataChart[0].indexOf(this.school_monitors[index].name)
 					let dn = this.dataChart[1][ind] +1
 					this.dataChart[1].splice(ind,1,dn)
 				}
 			})
-			this.socket.on('is_offline_'+key, (user) => {
-				let index = this.school_monitors.map(item => item.key).indexOf(key)
-				let exists = this.school_monitors[index].connect.map(item => item.id).indexOf(user.id)
+			this.socket.on('is_offline_'+key, (res) => {
+				let index = this.school_monitors.map(item => item.key).indexOf(res.key)
+				let exists = this.school_monitors[index].connect.map(item => item.id).indexOf(res.user.id)
 				if(exists != -1) {
 					this.school_monitors[index].connect.splice(exists,1)
 					let ind = this.dataChart[0].indexOf(this.school_monitors[index].name)
