@@ -184,33 +184,13 @@ export default {
 			this.chartData = this.doool
 		},
 		connectChannel(key) {
-			this.socket.on('is_online_'+key, (res) => {
-				let index = this.school_monitors.map(item => item.key).indexOf(res.key)
-				let exists = this.school_monitors[index].connect.map(item => item.id).indexOf(res.user.id)
-				if(exists == -1) {
-					this.school_monitors[index].connect.push(res.user)
-					let ind = this.dataChart[0].indexOf(this.school_monitors[index].name)
-					let dn = this.dataChart[1][ind] +1
-					this.dataChart[1].splice(ind,1,dn)
-				}
-			})
-			this.socket.on('is_offline_'+key, (res) => {
-				let index = this.school_monitors.map(item => item.key).indexOf(res.key)
-				let exists = this.school_monitors[index].connect.map(item => item.id).indexOf(res.user.id)
-				if(exists != -1) {
-					this.school_monitors[index].connect.splice(exists,1)
-					let ind = this.dataChart[0].indexOf(this.school_monitors[index].name)
-					let dn = this.dataChart[1][ind] -1
-					this.dataChart[1].splice(ind,1,dn)
-				}
-			})
+			
 		},
 		getData() {
 			let index = this.schools.map(item => item.id).indexOf(this.school_id)
 			if(index != -1) {
 				this.schools[index].connect = []
 				this.school_monitors.push(this.schools[index])
-				this.connectChannel(this.schools[index].key)
 				this.chartData[0].push(this.schools[index].name)
 
 				let dat = this.monit.filter(item => item.key == this.schools[index].key)
@@ -237,6 +217,31 @@ export default {
 		this.socket.on('monit', (users) => {
 			this.monit = users
 		})
+
+			this.socket.on('is_online', (res) => {
+				let index = this.school_monitors.map(item => item.key).indexOf(res.key)
+				if(index != -1) {
+					let exists = this.school_monitors[index].connect.map(item => item.id).indexOf(res.user.id)
+					if(exists == -1) {
+						this.school_monitors[index].connect.push(res.user)
+						let ind = this.dataChart[0].indexOf(this.school_monitors[index].name)
+						let dn = this.dataChart[1][ind] +1
+						this.dataChart[1].splice(ind,1,dn)
+					}
+				}
+			})
+			this.socket.on('is_offline', (res) => {
+				let index = this.school_monitors.map(item => item.key).indexOf(res.key)
+				if(index != -1) {
+					let exists = this.school_monitors[index].connect.map(item => item.id).indexOf(res.user.id)
+					if(exists != -1) {
+						this.school_monitors[index].connect.splice(exists,1)
+						let ind = this.dataChart[0].indexOf(this.school_monitors[index].name)
+						let dn = this.dataChart[1][ind] -1
+						this.dataChart[1].splice(ind,1,dn)
+					}
+				}
+			})
 	},
 	watch:{
 
