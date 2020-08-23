@@ -149,7 +149,8 @@ export default {
       		school_monitors: [],
 			data: [],
 			use_key: {},
-			dump: {}
+			dump: {},
+			monit: []
     	}
   	},
   	computed: {
@@ -211,7 +212,11 @@ export default {
 				this.school_monitors.push(this.schools[index])
 				this.connectChannel(this.schools[index].key)
 				this.chartData[0].push(this.schools[index].name)
-				this.chartData[1].push(0)
+
+				let dat = this.monit.filter(item => item.key == this.schools[index].key)
+				this.chartData[1].push(dat.length)
+				let indexS = this.school_monitors.map(item => item.id).indexOf(this.school_id)
+				this.school_monitors[indexS].connect.push(...dat.map(item => item.user))
 			}
 			this.school_id = ''
 		},
@@ -228,7 +233,10 @@ export default {
 		})
 	},
 	mounted() {
-
+		this.socket.emit('monitor');
+		this.socket.on('monit', (users) => {
+			this.monit = users
+		})
 	},
 	watch:{
 
