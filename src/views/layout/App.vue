@@ -24,7 +24,7 @@
         </section>
         <div class="mt-5">
             <p class="text-center p-5">
-                &copy; 2020 Extraordinary
+                &copy; 2020 Extraordinary Monitoring
             </p>
         </div>
     </div>
