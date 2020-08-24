@@ -302,7 +302,7 @@ export default {
 			let users = school.connect.map(item => item.id)
 			try {
 				this.$store.commit('SET_LOADING', true)
-				let user_rests = await axios.post(`${school.url}/users/offline?key=${school.key}`, { ids: users }, {
+				let user_rests = await axios.post(`${school.url}/api/v1/users/offline?key=${school.key}`, { ids: users }, {
 					headers: {
 						'Accept': 'application/json'
 					}

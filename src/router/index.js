@@ -5,6 +5,7 @@ import store from '@/store'
 const Login = () => import('@/views/auth/Login')
 const Dashboard = () => import('@/views/dashboard/Index')
 const Monitor = () => import('@/views/dashboard/Monitor')
+const Report = () => import('@/views/report/Report')
 const Layout = () => import('@/views/layout/App')
 
 Vue.use(VueRouter)
@@ -33,6 +34,11 @@ Vue.use(VueRouter)
         path: '/monit',
         name: 'monit',
         component: Monitor
+      },
+      {
+        path: '/report',
+        name: 'report',
+        component: Report
       }
     ]
   }

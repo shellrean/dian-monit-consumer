@@ -22,7 +22,7 @@
 						<span class="svg-icon svg-icon-3x svg-icon-primary d-block my-2">
 							<i class="flaticon-graphic icon-2x text-primary"></i>
 						</span>
-						<a href="#" class="text-primary font-weight-bold font-size-h6">Reporting</a>
+						<router-link :to="{ name: 'report' }" class="text-primary font-weight-bold font-size-h6">Reporting</router-link>
 					</div>
 				</div>
 			</div>
