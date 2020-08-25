@@ -215,6 +215,8 @@ import { mapGetters, mapActions, mapState } from 'vuex'
 import VuePerfectScrollbar from 'vue-perfect-scrollbar'
 import axios from 'axios'
 import { BTabs, BTab } from 'bootstrap-vue'
+import { successToas, errorToas } from '@/entities/notif'
+
 
 export default {
 	components: {

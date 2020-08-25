@@ -4,6 +4,7 @@ import Vuex from 'vuex'
 import auth from './auth.store'
 import school from './school.store'
 import channel from './channel.store'
+import report from './report.store'
 
 Vue.use(Vuex)
 
@@ -52,6 +53,7 @@ export default new Vuex.Store({
   	modules: {
   		auth,
       school,
-      channel
+      channel,
+      report
   	}
 })
