@@ -1,10 +1,10 @@
 <template>
-	<div class="container-fluid mt-4">
+	<div class="container-fluid">
 		<div class="row">
-			<div class="col-lg-4">
+			<div class="col-lg-3">
 				<NavigationDashboard />
 			</div>
-			<div class="col-lg-8">
+			<div class="col-lg-9">
 				<SchoolList />
 			</div>
 		</div>

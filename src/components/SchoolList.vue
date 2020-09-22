@@ -1,7 +1,7 @@
 <template>
 	<div class="d-flex flex-column-fluid">
 		<div class="container-fluid">
-			<div class="card card-custom">
+			<div class="card card-custom shadow-none border">
 				<div class="card-header pt-6 border-0 pb-0">
 					<h3 class="card-title align-items-start flex-column">
 						<span class="card-label font-weight-bolder text-dark">Sekolah</span>
@@ -18,32 +18,34 @@
 				<div class="card-body">
 					<div class="table-responsive-md">
 						<b-table :fields="fields"
+							show-empty
 						  :items="schools">
 						  	<template v-slot:cell(name)="row">
                         		<span>
                         			<div class="d-flex align-items-center">
-                        				<div class="symbol symbol-40 symbol-light-primary symbol-sm flex-shrink-0">					
+                        				<div class="symbol symbol-40 symbol-primary symbol-sm flex-shrink-0">					
                         					<span class="symbol-label font-size-h4 font-weight-bold ">
-                        						<i class="flaticon-earth-globe text-primary"></i>
+                        						<i class="flaticon-home-2 text-white"></i>
                         					</span>								
                         				</div>								
                         				<div class="ml-4 d-flex flex-column">									
-                        					<div class="text-dark-75 text-hover-primary font-weight-bolder font-size-lg mb-0" v-text="row.item.name"></div>									
+                        					<div class="text-dark-75 font-weight-bolder font-size-lg mb-0" v-text="row.item.name"></div>									
                         					<span class="text-muted font-weight-bold" v-text="row.item.npsn"></span>	
                         				</div>							
                         			</div>
                         		</span>
                         	</template>
                         	<template v-slot:cell(actions)="row">
-                        		<b-dropdown size="lg"  variant="link" toggle-class="text-decoration-none" no-caret>
+                        		<b-dropdown  variant="link" toggle-class="text-decoration-none" no-caret  class="bg-hover-light-primary rounded-pill btn-icon">
 									<template v-slot:button-content>
-									    <i class="flaticon-more"></i>
+									    <small class="flaticon-more"></small>
 									</template>
 									<b-dropdown-item @click="getData(row.item.id)">Edit</b-dropdown-item>
 									<b-dropdown-item @click="deleteData(row.item.id)">Hapus</b-dropdown-item>
 								</b-dropdown>
                         	</template>
 						</b-table>
+						<span class="badge badge-primary">Total {{ schools.length }} data</span>
 						<div class="d-flex align-items-center" v-if="isLoading">
 							<div class="mr-2 text-muted">Loading...</div>
 							<div class="spinner spinner-primary mr-10"></div>
@@ -55,23 +57,23 @@
 		<b-modal id="modal-create" title="Sekolah" @hide="$store.commit('school/CLEAR_SCHOOL')" no-close-on-backdrop>
 			<div class="form-group">
 				<label>NPSN</label>
-				<input type="text" class="form-control form-control-lg form-control-solid" v-model="school.npsn" :class="{ 'is-invalid' : errors.npsn }">
+				<input type="text" class="form-control" v-model="school.npsn" :class="{ 'is-invalid' : errors.npsn }">
 			</div>
 			<div class="form-group">
 				<label>Nama sekolah</label>
-				<input type="text" class="form-control form-control-solid form-control-lg" v-model="school.name" :class="{ 'is-invalid' : errors.name }">
+				<input type="text" class="form-control" v-model="school.name" :class="{ 'is-invalid' : errors.name }">
 			</div>
 			<div class="form-group">
 				<label>URL</label>
-				<input type="text" class="form-control form-control-solid form-control-lg" v-model="school.url" :class="{ 'is-invalid' : errors.url }">
+				<input type="text" class="form-control" v-model="school.url" :class="{ 'is-invalid' : errors.url }">
 			</div>
 			<template v-slot:modal-footer="{ cancel }">
-				<b-button variant="primary" @click="submit" :disabled="isLoading">
-					{{ isLoading ? 'Processing...' : 'Simpan' }}
-				</b-button>
 				<b-button variant="secondary" @click="cancel()" :disabled="isLoading">
                 	Tutup
              	</b-button>
+				<b-button variant="primary" @click="submit" :disabled="isLoading">
+					{{ isLoading ? 'Processing...' : 'Simpan' }}
+				</b-button>
 			</template>
 		</b-modal>
 	</div>
@@ -157,3 +159,8 @@ export default {
 	}
 }
 </script>
+<style>
+	.table > tbody > tr > td {
+     vertical-align: middle;
+}
+</style>
