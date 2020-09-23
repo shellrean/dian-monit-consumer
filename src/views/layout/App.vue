@@ -30,6 +30,9 @@
                             <li class="nav-item">
                                 <router-link class="nav-link" active-class="active" :to="{ name: 'monit' }">Time Monitoring</router-link>
                             </li>
+                            <li class="nav-item">
+                                <router-link class="nav-link" active-class="active" :to="{ name: 'report' }">Reporting</router-link>
+                            </li>
                         </ul>
                     </div>
                 </div>
